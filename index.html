@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#1a0c0c">
+<title>Mi Coctelería</title>
+<style>
+  :root{
+    --bg:#1a0c0c; --bg2:#241010; --card:#301414; --card2:#3c1a18;
+    --line:#4d2422; --text:#f6e7e3; --muted:#c89a92; --gold:#e0533c;
+    --gold2:#ff7a63; --accent:#a52a2a; --green:#7a9e6e; --shadow:rgba(0,0,0,.5);
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{
+    background:linear-gradient(170deg,#1a0c0c,#0d0606);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    min-height:100vh;
+    padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:18px 16px 120px}
+  header{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+  header h1{font-size:1.45rem;margin:0;font-weight:700;letter-spacing:.3px}
+  header h1 .em{color:var(--gold)}
+  .sub{color:var(--muted);font-size:.82rem;margin:0 0 16px}
+  .toolbar{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+  .search{flex:1;min-width:160px;position:relative}
+  .search input{
+    width:100%;padding:12px 14px 12px 40px;border-radius:14px;border:1px solid var(--line);
+    background:var(--card);color:var(--text);font-size:1rem;outline:none;
+  }
+  .search svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);opacity:.5}
+  .menu{
+    position:sticky;top:0;z-index:20;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;
+    background:rgba(26,12,12,.92);backdrop-filter:blur(8px);
+    margin:0 -16px 16px;padding:2px 16px 0;border-bottom:1px solid var(--line);
+  }
+  .menu::-webkit-scrollbar{display:none}
+  .tab{
+    white-space:nowrap;padding:13px 10px 12px;background:none;border:none;cursor:pointer;
+    color:var(--muted);font-size:.9rem;font-weight:600;border-bottom:2.5px solid transparent;transition:.15s;
+  }
+  .tab.active{color:var(--gold2);border-bottom-color:var(--gold)}
+  .grid{display:grid;gap:12px}
+  .card{
+    background:linear-gradient(160deg,var(--card),var(--card2));
+    border:1px solid var(--line);border-radius:18px;padding:16px 16px 14px;
+    box-shadow:0 6px 18px var(--shadow);cursor:pointer;transition:transform .12s,border-color .15s;
+  }
+  .card:active{transform:scale(.985)}
+  .card .top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+  .card h3{margin:0;font-size:1.12rem;font-weight:650}
+  .card .fav{font-size:1.1rem;line-height:1;flex-shrink:0}
+  .card .meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+  .tag{font-size:.72rem;padding:3px 9px;border-radius:999px;background:rgba(224,83,60,.14);color:var(--gold2);border:1px solid rgba(224,83,60,.28)}
+  .tag.cat{background:rgba(165,42,42,.22);color:#e8a08f;border-color:rgba(165,42,42,.45)}
+  .card p.ing{margin:10px 0 0;color:var(--muted);font-size:.86rem;line-height:1.4}
+  .empty{text-align:center;color:var(--muted);padding:60px 20px}
+  .empty .big{font-size:2.4rem;margin-bottom:8px}
+  /* bottom static nav */
+  .bottomnav{
+    position:fixed;left:0;right:0;bottom:0;z-index:25;
+    display:flex;align-items:center;justify-content:space-around;
+    background:var(--bg2);border-top:1px solid var(--line);box-shadow:0 -4px 20px var(--shadow);
+    padding:10px 24px calc(10px + env(safe-area-inset-bottom));
+  }
+  .navbtn{
+    flex:1;background:none;border:none;color:var(--muted);cursor:pointer;
+    display:flex;flex-direction:column;align-items:center;gap:4px;font-size:.72rem;font-weight:600;
+  }
+  .navbtn .i{font-size:1.25rem;line-height:1}
+  .navbtn:active{color:var(--gold2)}
+  .navadd{
+    flex:0 0 auto;width:60px;height:60px;border-radius:50%;border:none;cursor:pointer;margin-top:-30px;
+    background:linear-gradient(145deg,var(--gold2),var(--gold));color:#2a0d08;
+    font-size:2.1rem;line-height:1;box-shadow:0 6px 20px rgba(224,83,60,.5);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .navadd:active{transform:scale(.92)}
+  /* Modal */
+  .overlay{
+    position:fixed;inset:0;background:rgba(8,5,3,.7);backdrop-filter:blur(4px);
+    z-index:50;display:none;align-items:flex-end;justify-content:center;
+  }
+  .overlay.open{display:flex}
+  .sheet{
+    background:var(--bg2);width:100%;max-width:680px;max-height:92vh;overflow-y:auto;
+    border-radius:22px 22px 0 0;border:1px solid var(--line);border-bottom:none;
+    padding:8px 20px calc(28px + env(safe-area-inset-bottom));animation:up .25s ease;
+  }
+  @media(min-width:700px){.overlay{align-items:center}.sheet{border-radius:22px;border-bottom:1px solid var(--line);max-height:88vh}}
+  @keyframes up{from{transform:translateY(40px);opacity:.6}to{transform:translateY(0);opacity:1}}
+  .grip{width:42px;height:5px;background:var(--line);border-radius:3px;margin:8px auto 14px}
+  .sheet h2{margin:0 0 4px;font-size:1.4rem}
+  .detail-tags{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 18px}
+  .section-t{color:var(--gold);font-size:.78rem;text-transform:uppercase;letter-spacing:1px;margin:18px 0 8px;font-weight:700}
+  .ing-list{list-style:none;padding:0;margin:0}
+  .ing-list li{padding:9px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;font-size:.95rem}
+  .ing-list li .q{color:var(--gold2);font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:600}
+  .steps{padding-left:0;margin:0;list-style:none;counter-reset:s}
+  .steps li{position:relative;padding:6px 0 14px 38px;font-size:.95rem;line-height:1.45;counter-increment:s}
+  .steps li::before{
+    content:counter(s);position:absolute;left:0;top:4px;width:26px;height:26px;border-radius:50%;
+    background:var(--gold);color:#241a0d;font-weight:700;font-size:.82rem;display:flex;align-items:center;justify-content:center;
+  }
+  .notes{background:var(--card);border-left:3px solid var(--accent);padding:12px 14px;border-radius:0 10px 10px 0;color:var(--muted);font-size:.9rem;line-height:1.5;font-style:italic}
+  .detail-actions{display:flex;gap:10px;margin-top:24px}
+  .btn{flex:1;padding:13px;border-radius:13px;border:none;font-size:.95rem;font-weight:600;cursor:pointer}
+  .btn.primary{background:var(--gold);color:#241a0d}
+  .btn.ghost{background:var(--card);color:var(--text);border:1px solid var(--line)}
+  .btn.danger{background:transparent;color:var(--accent);border:1px solid rgba(199,91,57,.4);flex:0 0 auto;padding:13px 18px}
+  /* Form */
+  .field{margin-bottom:14px}
+  .field label{display:block;font-size:.8rem;color:var(--muted);margin-bottom:6px;font-weight:600}
+  .field input,.field textarea,.field select{
+    width:100%;padding:11px 13px;border-radius:11px;border:1px solid var(--line);
+    background:var(--card);color:var(--text);font-size:1rem;outline:none;font-family:inherit;
+  }
+  .field textarea{resize:vertical;min-height:70px;line-height:1.4}
+  .field .hint{font-size:.72rem;color:var(--muted);margin-top:5px;opacity:.8}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .toast{
+    position:fixed;left:50%;bottom:90px;transform:translateX(-50%) translateY(20px);
+    background:var(--card2);border:1px solid var(--gold);color:var(--text);
+    padding:11px 20px;border-radius:12px;font-size:.88rem;z-index:80;opacity:0;transition:.25s;pointer-events:none;box-shadow:0 8px 22px var(--shadow);
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .count{color:var(--muted);font-size:.78rem;margin-left:auto}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span style="font-size:1.7rem">🍸</span>
+    <h1>Mi <span class="em">Coctelería</span></h1>
+    <span class="count" id="count"></span>
+  </header>
+  <p class="sub">Tu carta personal — guardada en este dispositivo</p>
+
+  <div class="toolbar">
+    <div class="search">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="search" type="search" placeholder="Buscar cóctel o ingrediente…" autocomplete="off">
+    </div>
+  </div>
+
+  <div class="menu" id="chips"></div>
+  <div class="grid" id="grid"></div>
+</div>
+
+<nav class="bottomnav">
+  <button class="navbtn" id="exportBtn"><span class="i">⬇️</span><span>Exportar</span></button>
+  <button class="navadd" id="addBtn" aria-label="Añadir cóctel">+</button>
+  <button class="navbtn" id="importBtn"><span class="i">⬆️</span><span>Importar</span></button>
+  <input type="file" id="importFile" accept="application/json,.json" hidden>
+</nav>
+
+<!-- Detail / Form overlay -->
+<div class="overlay" id="overlay">
+  <div class="sheet" id="sheet"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const STORE_KEY = 'mi_cocteleria_v1';
+const $ = s => document.querySelector(s);
+
+const SEED = [
+  {"id":"c-6mayo","name":"6 de mayo","category":"Con alcohol","favorite":false,"glass":"","tags":["mezcal","tequila","ahumado"],"ingredients":[{"q":"25 ml","n":"Mezcal"},{"q":"25 ml","n":"Tequila blanco"},{"q":"25 ml","n":"Sirope de pico de gallo / tomate"},{"q":"10 ml","n":"Lima"},{"q":"5 ml","n":"Mezcal con ñora (o 2 gotas de Tabasco)"},{"q":"Pizca","n":"Sal"},{"q":"10 ml","n":"Cointreau"}],"steps":[],"notes":""},
+  {"id":"c-bloody-wednesday","name":"Bloody Wednesday","category":"Con alcohol","favorite":false,"glass":"","tags":["vodka","tomate"],"ingredients":[{"q":"45 ml","n":"Vodka"},{"q":"30 ml","n":"Zumo de limón"},{"q":"20 ml","n":"Sirope de tomate"},{"q":"","n":"Cilantro crudo"}],"steps":[],"notes":""},
+  {"id":"c-cask-clover","name":"Cask & Clover","category":"Con alcohol","favorite":false,"glass":"","tags":["whiskey","bourbon","clara"],"ingredients":[{"q":"60 ml","n":"Whiskey (bourbon o irlandés suave)"},{"q":"25 ml","n":"Zumo de limón recién exprimido"},{"q":"20 ml","n":"Sirope simple (1:1 agua + azúcar)"},{"q":"1 ud","n":"Clara de huevo (o 20 ml de aquafaba para opción vegana)"}],"steps":[],"notes":""},
+  {"id":"c-sargantana","name":"Sargantana","category":"Con alcohol","favorite":false,"glass":"","tags":["whiskey","sake"],"ingredients":[{"q":"30/40 ml","n":"Whiskey"},{"q":"20/30 ml","n":"Sake"},{"q":"5 ml","n":"Choya"},{"q":"100 ml","n":"Shiso"}],"steps":[],"notes":""},
+  {"id":"c-lavender-collins","name":"Lavender Collins","category":"Con alcohol","favorite":false,"glass":"","tags":["gin","lavanda"],"ingredients":[{"q":"60 ml","n":"Gin"},{"q":"25 ml","n":"Sirope de lavanda"},{"q":"30 ml","n":"Zumo de limón"},{"q":"Top","n":"Agua con gas"}],"steps":[],"notes":""},
+  {"id":"c-smoked-mandarino","name":"Smoked Mandarino","category":"Con alcohol","favorite":false,"glass":"","tags":["bourbon","jerez"],"ingredients":[{"q":"30 ml","n":"Bourbon"},{"q":"30 ml","n":"Gardeum"},{"q":"30 ml","n":"Jerez seco"}],"steps":[],"notes":""},
+  {"id":"c-japanese-collins","name":"Japanese Collins","category":"Con alcohol","favorite":false,"glass":"","tags":["gin","japonés"],"ingredients":[{"q":"50 ml","n":"Gin japonesa"},{"q":"20/15 ml","n":"Zumo de lima"},{"q":"10 ml","n":"Choya con yuzu"},{"q":"10 ml","n":"Gardeum"},{"q":"Top","n":"Agua con gas"}],"steps":[],"notes":""},
+  {"id":"c-el-rico","name":"El Rico","category":"Con alcohol","favorite":false,"glass":"","tags":["mezcal","picante"],"ingredients":[{"q":"50 ml","n":"Mezcal"},{"q":"20 ml","n":"Italicus"},{"q":"20 ml","n":"Choya con yuzu"},{"q":"15 ml","n":"Limón"},{"q":"1 flus","n":"Tabasco"},{"q":"0,5 ramas","n":"Cilantro"}],"steps":[],"notes":""},
+  {"id":"c-macarronissimo","name":"Macarronissimo","category":"Con alcohol","favorite":false,"glass":"","tags":["gin","miso"],"ingredients":[{"q":"50 ml","n":"Gin Nut"},{"q":"50 ml","n":"Italicus"},{"q":"25 ml","n":"Limón"},{"q":"1/2 tbsp","n":"Caramelo de miso"},{"q":"1 ml","n":"Agua de bitxo"}],"steps":[],"notes":""},
+  {"id":"c-june-17th","name":"June 17th","category":"Con alcohol","favorite":false,"glass":"","tags":["bourbon"],"ingredients":[{"q":"50 ml","n":"Bourbon"},{"q":"20 ml","n":"St. Germain"},{"q":"15 ml","n":"Italicus"}],"steps":[],"notes":""},
+  {"id":"c-shiso-sirope","name":"Shiso (sirope)","category":"Siropes y prep.","favorite":false,"glass":"","tags":["sirope","shiso","preparación"],"ingredients":[{"q":"1 L","n":"Agua"},{"q":"100 g","n":"Azúcar"},{"q":"1,5 g","n":"Ácido cítrico"}],"steps":["Hervir el shiso en agua para extraer el color (el agua queda turbia/sucia).","Añadir el ácido cítrico para fijar y avivar el color."],"notes":"Base que uso en la Sargantana."},
+  {"id":"c-penicillin-sobrio","name":"Penicillin sobrio","category":"Sin alcohol","favorite":false,"glass":"Vaso largo","tags":["sin alcohol","ahumado","té"],"ingredients":[{"q":"25 ml","n":"Limón"},{"q":"20 ml","n":"Sirope de miel y jengibre"},{"q":"100 ml","n":"Té lapsang souchong frío y cargado"},{"q":"3 gotas","n":"Angostura"}],"steps":["Construir en el vaso sobre hielo.","Remover."],"notes":"El \"whisky de mentira\": el más ahumado y maderoso."},
+  {"id":"c-mule-sobrio","name":"Mule sobrio","category":"Sin alcohol","favorite":false,"glass":"Vaso largo","tags":["sin alcohol","jengibre"],"ingredients":[{"q":"25 ml","n":"Lima"},{"q":"20 ml","n":"Sirope de jengibre"},{"q":"100 ml","n":"Soda (o ginger ale si lo quieres más dulce y picante)"},{"q":"3 gotas","n":"Angostura"}],"steps":["Construir en el vaso sobre hielo.","Remover."],"notes":""},
+  {"id":"c-romero-miel","name":"Romero-miel","category":"Sin alcohol","favorite":false,"glass":"Vaso largo","tags":["sin alcohol","romero"],"ingredients":[{"q":"25 ml","n":"Limón"},{"q":"15 ml","n":"Sirope de romero"},{"q":"1 cdta","n":"Miel"},{"q":"100 ml","n":"Tónica"},{"q":"3 gotas","n":"Angostura"}],"steps":["Construir en el vaso sobre hielo.","Remover."],"notes":""},
+  {"id":"c-albahaca-lima","name":"Albahaca-lima","category":"Sin alcohol","favorite":false,"glass":"Vaso largo","tags":["sin alcohol","albahaca"],"ingredients":[{"q":"25 ml","n":"Lima"},{"q":"20 ml","n":"Sirope de albahaca"},{"q":"4-5 hojas","n":"Albahaca majada en el vaso"},{"q":"90 ml","n":"Soda"},{"q":"2 gotas","n":"Angostura"}],"steps":["Majar la albahaca en el vaso.","Añadir el resto sobre hielo y remover."],"notes":""},
+  {"id":"c-jengibre-albahaca","name":"Jengibre-albahaca","category":"Sin alcohol","favorite":false,"glass":"Vaso largo","tags":["sin alcohol","jengibre","albahaca"],"ingredients":[{"q":"25 ml","n":"Lima"},{"q":"20 ml","n":"Sirope de jengibre"},{"q":"4 hojas","n":"Albahaca majada"},{"q":"90 ml","n":"Soda"}],"steps":["Majar la albahaca en el vaso.","Añadir el resto sobre hielo y remover."],"notes":""},
+  {"id":"c-agave-neutro","name":"Agave neutro","category":"Sin alcohol","favorite":false,"glass":"Vaso largo","tags":["sin alcohol","margarita"],"ingredients":[{"q":"30 ml","n":"Lima"},{"q":"20 ml","n":"Agave"},{"q":"90 ml","n":"Soda"},{"q":"4-5 gotas","n":"Angostura"}],"steps":["Construir en el vaso sobre hielo.","Remover."],"notes":"El más limpio, tipo Margarita sobria. Aquí el amargor de la Angostura es el protagonista."},
+  {"id":"c-sour-aquafaba","name":"Sour de aquafaba","category":"Sin alcohol","favorite":false,"glass":"Copa","tags":["sin alcohol","sour","espuma"],"ingredients":[{"q":"30 ml","n":"Limón"},{"q":"25 ml","n":"Sirope de miel y jengibre"},{"q":"15 ml","n":"Aquafaba (agua del bote de garbanzos)"},{"q":"3 gotas","n":"Angostura (al final, por encima)"}],"steps":["Agitar fuerte SIN hielo 15 seg para montar la espuma.","Agitar de nuevo CON hielo otros 15 seg.","Colar en copa.","Las gotas de Angostura van sobre la espuma."],"notes":"Textura de Whiskey Sour real."},
+  {"id":"c-lapsang-puro","name":"Lapsang puro","category":"Sin alcohol","favorite":false,"glass":"Vaso largo","tags":["sin alcohol","té","ahumado"],"ingredients":[{"q":"120 ml","n":"Té lapsang souchong frío y cargado"},{"q":"20 ml","n":"Sirope de jengibre"},{"q":"3 gotas","n":"Angostura"},{"q":"10 ml","n":"Limón (opcional, para más vivo)"}],"steps":["Construir sobre hielo.","Remover."],"notes":"El más maderoso, sin cítrico."}
+];
+
+let data = load();
+let filter = 'Todos';
+let query = '';
+
+function load(){
+  try{
+    const raw = localStorage.getItem(STORE_KEY);
+    if(raw) return JSON.parse(raw);
+  }catch(e){}
+  // primera vez: precargamos un par de ejemplos
+  localStorage.setItem(STORE_KEY, JSON.stringify(SEED));
+  return JSON.parse(JSON.stringify(SEED));
+}
+function save(){ localStorage.setItem(STORE_KEY, JSON.stringify(data)); }
+function uid(){ return 'c-' + Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
+
+function categories(){
+  const set = new Set(data.map(c=>c.category).filter(Boolean));
+  return ['Todos','★ Favoritos', ...[...set].sort()];
+}
+
+function render(){
+  $('#count').textContent = data.length ? data.length + (data.length===1?' cóctel':' cócteles') : '';
+  // chips
+  const chips = $('#chips'); chips.innerHTML='';
+  categories().forEach(cat=>{
+    const b = document.createElement('button');
+    b.className = 'tab' + (cat===filter?' active':'');
+    b.textContent = cat;
+    b.onclick = ()=>{ filter=cat; render(); };
+    chips.appendChild(b);
+  });
+  // grid
+  let list = data.slice();
+  if(filter==='★ Favoritos') list = list.filter(c=>c.favorite);
+  else if(filter!=='Todos') list = list.filter(c=>c.category===filter);
+  if(query){
+    const q = query.toLowerCase();
+    list = list.filter(c =>
+      c.name.toLowerCase().includes(q) ||
+      (c.ingredients||[]).some(i=>i.n.toLowerCase().includes(q)) ||
+      (c.tags||[]).some(t=>t.toLowerCase().includes(q))
+    );
+  }
+  list.sort((a,b)=> (b.favorite?1:0)-(a.favorite?1:0) || a.name.localeCompare(b.name));
+
+  const grid = $('#grid'); grid.innerHTML='';
+  if(!list.length){
+    grid.innerHTML = `<div class="empty"><div class="big">🍹</div>${data.length? 'Nada por aquí. Prueba otra búsqueda.' : 'Aún no tienes cócteles.<br>Pulsa el botón <b>+</b> para añadir el primero.'}</div>`;
+    return;
+  }
+  list.forEach(c=>{
+    const el = document.createElement('div');
+    el.className='card';
+    const ings = (c.ingredients||[]).map(i=>i.n).slice(0,5).join(' · ');
+    el.innerHTML = `
+      <div class="top">
+        <h3>${esc(c.name)}</h3>
+        <span class="fav">${c.favorite?'★':'☆'}</span>
+      </div>
+      <div class="meta">
+        ${c.category?`<span class="tag cat">${esc(c.category)}</span>`:''}
+        ${(c.tags||[]).slice(0,3).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}
+      </div>
+      ${ings?`<p class="ing">${esc(ings)}</p>`:''}
+    `;
+    el.onclick = ()=>showDetail(c.id);
+    grid.appendChild(el);
+  });
+}
+
+function showDetail(id){
+  const c = data.find(x=>x.id===id); if(!c) return;
+  const sheet = $('#sheet');
+  sheet.innerHTML = `
+    <div class="grip"></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
+      <h2>${esc(c.name)}</h2>
+      <span style="font-size:1.6rem;cursor:pointer" id="favToggle">${c.favorite?'★':'☆'}</span>
+    </div>
+    <div class="detail-tags">
+      ${c.category?`<span class="tag cat">${esc(c.category)}</span>`:''}
+      ${c.glass?`<span class="tag">🥃 ${esc(c.glass)}</span>`:''}
+      ${(c.tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}
+    </div>
+    ${(c.ingredients||[]).length?`
+      <div class="section-t">Ingredientes</div>
+      <ul class="ing-list">
+        ${c.ingredients.map(i=>`<li><span>${esc(i.n)}</span><span class="q">${esc(i.q||'')}</span></li>`).join('')}
+      </ul>`:''}
+    ${(c.steps||[]).length?`
+      <div class="section-t">Preparación</div>
+      <ol class="steps">${c.steps.map(s=>`<li>${esc(s)}</li>`).join('')}</ol>`:''}
+    ${c.notes?`<div class="section-t">Notas</div><div class="notes">${esc(c.notes)}</div>`:''}
+    <div class="detail-actions">
+      <button class="btn ghost" id="editBtn">✏️ Editar</button>
+      <button class="btn danger" id="delBtn">🗑️</button>
+    </div>
+  `;
+  openOverlay();
+  $('#favToggle').onclick = ()=>{ c.favorite=!c.favorite; save(); $('#favToggle').textContent=c.favorite?'★':'☆'; render(); };
+  $('#editBtn').onclick = ()=>showForm(c.id);
+  $('#delBtn').onclick = ()=>{
+    if(confirm(`¿Eliminar "${c.name}"?`)){
+      data = data.filter(x=>x.id!==id); save(); closeOverlay(); render(); toast('Cóctel eliminado');
+    }
+  };
+}
+
+function showForm(id){
+  const c = id ? data.find(x=>x.id===id) : null;
+  const ingText = c ? (c.ingredients||[]).map(i=>`${i.q||''} ${i.n}`.trim()).join('\n') : '';
+  const stepText = c ? (c.steps||[]).join('\n') : '';
+  const sheet = $('#sheet');
+  sheet.innerHTML = `
+    <div class="grip"></div>
+    <h2>${c?'Editar cóctel':'Nuevo cóctel'}</h2>
+    <div style="height:14px"></div>
+    <div class="field"><label>Nombre *</label><input id="f_name" value="${c?esc(c.name):''}" placeholder="Ej. Margarita"></div>
+    <div class="row2">
+      <div class="field"><label>Categoría</label><input id="f_cat" value="${c?esc(c.category||''):''}" placeholder="Clásico, Tiki…" list="catlist"></div>
+      <div class="field"><label>Cristalería</label><input id="f_glass" value="${c?esc(c.glass||''):''}" placeholder="Coupe, Highball…"></div>
+    </div>
+    <datalist id="catlist">${[...new Set(data.map(x=>x.category).filter(Boolean))].map(x=>`<option value="${esc(x)}">`).join('')}</datalist>
+    <div class="field"><label>Etiquetas</label><input id="f_tags" value="${c?esc((c.tags||[]).join(', ')):''}" placeholder="cítrico, ron, batido"><div class="hint">Separadas por comas</div></div>
+    <div class="field"><label>Ingredientes</label><textarea id="f_ing" placeholder="60 ml Ron blanco&#10;25 ml Zumo de lima&#10;15 ml Sirope">${esc(ingText)}</textarea><div class="hint">Uno por línea. Cantidad + ingrediente.</div></div>
+    <div class="field"><label>Preparación</label><textarea id="f_steps" placeholder="Un paso por línea">${esc(stepText)}</textarea><div class="hint">Un paso por línea.</div></div>
+    <div class="field"><label>Notas</label><textarea id="f_notes" placeholder="Trucos, variaciones, recuerdos…">${c?esc(c.notes||''):''}</textarea></div>
+    <div class="detail-actions">
+      <button class="btn ghost" id="cancelBtn">Cancelar</button>
+      <button class="btn primary" id="saveBtn">Guardar</button>
+    </div>
+  `;
+  openOverlay();
+  $('#cancelBtn').onclick = ()=> c ? showDetail(c.id) : closeOverlay();
+  $('#saveBtn').onclick = ()=>{
+    const name = $('#f_name').value.trim();
+    if(!name){ toast('Ponle un nombre 🙂'); $('#f_name').focus(); return; }
+    const ingredients = $('#f_ing').value.split('\n').map(l=>l.trim()).filter(Boolean).map(parseIng);
+    const steps = $('#f_steps').value.split('\n').map(l=>l.trim()).filter(Boolean);
+    const tags = $('#f_tags').value.split(',').map(t=>t.trim()).filter(Boolean);
+    const obj = {
+      id: c?c.id:uid(),
+      name, category:$('#f_cat').value.trim(), glass:$('#f_glass').value.trim(),
+      tags, ingredients, steps, notes:$('#f_notes').value.trim(),
+      favorite: c?c.favorite:false
+    };
+    if(c){ Object.assign(c,obj); } else { data.push(obj); }
+    save(); render(); showDetail(obj.id); toast(c?'Guardado ✓':'¡Cóctel añadido! 🍸');
+  };
+  setTimeout(()=>$('#f_name').focus(),100);
+}
+
+// "60 ml Ron blanco" -> {q:'60 ml', n:'Ron blanco'}
+function parseIng(line){
+  const m = line.match(/^([\d.,/]+\s*(?:ml|cl|oz|g|gr|dash|dashes|gotas?|cucharada?s?|cdta?|chorr[io]t?o?|partes?|barspoon|bs|piezas?|unidad(?:es)?|ramita?s?|hojas?)?\.?)\s+(.+)$/i);
+  if(m && m[2]) return {q:m[1].trim(), n:m[2].trim()};
+  return {q:'', n:line};
+}
+
+function openOverlay(){ $('#overlay').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeOverlay(){ $('#overlay').classList.remove('open'); document.body.style.overflow=''; }
+$('#overlay').onclick = e=>{ if(e.target===$('#overlay')) closeOverlay(); };
+
+$('#addBtn').onclick = ()=>showForm(null);
+$('#search').oninput = e=>{ query=e.target.value; render(); };
+
+// Export
+$('#exportBtn').onclick = ()=>{
+  const blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  const d = new Date();
+  a.href = url;
+  a.download = `cocteles-${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}.json`;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+  toast('Exportado ⬇️ Guárdalo en iCloud');
+};
+// Import
+$('#importBtn').onclick = ()=>$('#importFile').click();
+$('#importFile').onchange = e=>{
+  const file = e.target.files[0]; if(!file) return;
+  const reader = new FileReader();
+  reader.onload = ev=>{
+    try{
+      const incoming = JSON.parse(ev.target.result);
+      if(!Array.isArray(incoming)) throw new Error('formato');
+      // fusionar por id; los nuevos se añaden, los existentes se actualizan
+      const byId = {}; data.forEach(c=>byId[c.id]=c);
+      let added=0, updated=0;
+      incoming.forEach(c=>{
+        if(!c || !c.name) return;
+        if(!c.id) c.id = uid();
+        if(byId[c.id]){ Object.assign(byId[c.id],c); updated++; }
+        else { data.push(c); byId[c.id]=c; added++; }
+      });
+      save(); render();
+      toast(`Importado: ${added} nuevos, ${updated} actualizados`);
+    }catch(err){ toast('No pude leer ese archivo 😕'); }
+  };
+  reader.readAsText(file);
+  e.target.value='';
+};
+
+let toastT;
+function toast(msg){
+  const t=$('#toast'); t.textContent=msg; t.classList.add('show');
+  clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('show'),2600);
+}
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m])); }
+
+render();
+</script>
+</body>
+</html>
