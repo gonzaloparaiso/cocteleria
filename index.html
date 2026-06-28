@@ -9,13 +9,16 @@
 <meta name="theme-color" content="#1a0c0c">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
 <title>Coctelería</title>
 <style>
   :root{
     --bg:#1a0c0c; --bg2:#241010; --card:#2c1413; --card2:#371917;
     --line:#48201e; --text:#f2e4e0; --muted:#b89089; --soft:#8f6a64;
     --accent:#b23a32; --accent2:#d4564a; --gold:#c98b5e; --shadow:rgba(0,0,0,.55);
-    --serif:Georgia,'Times New Roman',serif;
+    --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html,body{margin:0;padding:0}
@@ -65,7 +68,7 @@
   .card:active{transform:scale(.99)}
   .card:hover{border-color:#5c2926}
   .card .top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-  .card h3{margin:0;font-family:var(--serif);font-size:1.25rem;font-weight:400;letter-spacing:.3px;line-height:1.2}
+  .card h3{margin:0;font-family:var(--serif);font-size:1.5rem;font-weight:300;letter-spacing:.3px;line-height:1.15}
   .card .star{flex-shrink:0;margin-top:2px}
   .card .cat{display:block;color:var(--accent2);font-size:.68rem;letter-spacing:1.8px;text-transform:uppercase;margin-top:7px;font-weight:700}
   .card p.ing{margin:11px 0 0;color:var(--muted);font-size:.88rem;line-height:1.45}
@@ -105,9 +108,9 @@
   .ai-saved{display:flex;justify-content:space-between;align-items:center;font-size:.78rem;color:var(--soft);margin-bottom:14px}
   .ai-saved a{color:var(--gold);cursor:pointer}
   .ai-results{margin-top:6px}
-  .ai-msg{color:var(--text);font-size:.95rem;line-height:1.55;font-family:var(--serif);margin:4px 0 18px}
+  .ai-msg{color:var(--text);font-size:1.05rem;line-height:1.5;font-family:var(--serif);font-weight:400;margin:4px 0 18px}
   .ai-rec{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px}
-  .ai-rec h4{margin:0 0 4px;font-family:var(--serif);font-size:1.2rem;font-weight:400}
+  .ai-rec h4{margin:0 0 4px;font-family:var(--serif);font-size:1.45rem;font-weight:300}
   .ai-rec .rc{color:var(--accent2);font-size:.66rem;letter-spacing:1.6px;text-transform:uppercase;font-weight:700}
   .ai-rec ul{list-style:none;padding:0;margin:12px 0 0}
   .ai-rec ul li{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px solid rgba(72,32,30,.4);font-size:.9rem}
@@ -133,7 +136,7 @@
   @keyframes up{from{transform:translateY(40px);opacity:.6}to{transform:translateY(0);opacity:1}}
   .grip{width:40px;height:4px;background:var(--line);border-radius:3px;margin:8px auto 18px}
   .sheet .d-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-  .sheet h2{margin:0;font-family:var(--serif);font-size:1.7rem;font-weight:400;letter-spacing:.4px;line-height:1.15}
+  .sheet h2{margin:0;font-family:var(--serif);font-size:2.1rem;font-weight:300;letter-spacing:.4px;line-height:1.1}
   .d-cat{color:var(--accent2);font-size:.7rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;margin:14px 0 0}
   .detail-tags{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0 4px}
   .section-t{color:var(--gold);font-size:.72rem;text-transform:uppercase;letter-spacing:2px;margin:24px 0 12px;font-weight:700;padding-bottom:7px;border-bottom:1px solid var(--line)}
@@ -146,10 +149,10 @@
   .steps li:last-child{padding-bottom:0}
   .steps li::before{
     content:counter(s);position:absolute;left:0;top:2px;width:26px;height:26px;border-radius:50%;
-    border:1px solid var(--accent);color:var(--accent2);font-weight:700;font-size:.82rem;
+    border:1px solid var(--accent);color:var(--accent2);font-weight:500;font-size:.92rem;
     display:flex;align-items:center;justify-content:center;font-family:var(--serif);
   }
-  .notes{color:var(--muted);font-size:.92rem;line-height:1.55;font-style:italic;font-family:var(--serif)}
+  .notes{color:var(--muted);font-size:1.02rem;line-height:1.5;font-style:italic;font-family:var(--serif);font-weight:400}
   .detail-actions{display:flex;gap:10px;margin-top:28px}
   .btn{flex:1;padding:13px;border-radius:9px;border:1px solid var(--line);font-size:.78rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;cursor:pointer;background:var(--card);color:var(--text)}
   .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
