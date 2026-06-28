@@ -7,6 +7,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Coctelería">
 <meta name="theme-color" content="#1a0c0c">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="apple-touch-icon.png">
 <title>Coctelería</title>
 <style>
   :root{
@@ -28,8 +30,7 @@
 
   /* Header */
   header{text-align:center;padding-bottom:18px;border-bottom:1px solid var(--line);margin-bottom:20px}
-  header .brand{font-family:var(--serif);font-size:1.9rem;font-weight:400;letter-spacing:2px;margin:0}
-  header .rule{width:46px;height:2px;background:var(--accent);margin:10px auto 0}
+  header .brand-logo{width:130px;height:130px;display:block;margin:0 auto;border-radius:26px}
   header .sub{color:var(--soft);font-size:.72rem;letter-spacing:2.5px;text-transform:uppercase;margin:12px 0 0}
 
   /* Toolbar: search + filter */
@@ -76,16 +77,16 @@
 
   /* Bottom bar */
   .bottombar{
-    position:fixed;left:0;right:0;bottom:0;z-index:25;display:flex;gap:10px;
+    position:fixed;left:0;right:0;bottom:0;z-index:25;display:flex;gap:7px;
     background:var(--bg2);border-top:1px solid var(--line);box-shadow:0 -4px 20px var(--shadow);
-    padding:12px 18px calc(12px + env(safe-area-inset-bottom));max-width:760px;margin:0 auto;
+    padding:12px 14px calc(12px + env(safe-area-inset-bottom));max-width:760px;margin:0 auto;
   }
   .bar-btn{
-    flex:1;padding:13px 10px;border-radius:9px;border:1px solid var(--line);background:var(--card);
-    color:var(--muted);font-size:.74rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:.15s;
+    flex:1;min-width:0;padding:12px 6px;border-radius:9px;border:1px solid var(--line);background:var(--card);
+    color:var(--muted);font-size:.7rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;cursor:pointer;transition:.15s;
   }
   .bar-btn:active{transform:scale(.97)}
-  .bar-btn.primary{background:var(--accent);border-color:var(--accent);color:#fff;flex:1.4}
+  .bar-btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
   .bar-btn.primary:active{background:var(--accent2)}
   .bar-btn.accent{color:var(--gold);border-color:rgba(201,139,94,.5)}
   .bar-btn.accent:active{background:var(--card2)}
@@ -178,8 +179,7 @@
 <body>
 <div class="wrap">
   <header>
-    <h1 class="brand">Coctelería</h1>
-    <div class="rule"></div>
+    <img class="brand-logo" src="logo.png" alt="Coctelería" width="130" height="130">
     <p class="sub">Carta personal</p>
   </header>
 
