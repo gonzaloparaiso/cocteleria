@@ -87,6 +87,38 @@
   .bar-btn:active{transform:scale(.97)}
   .bar-btn.primary{background:var(--accent);border-color:var(--accent);color:#fff;flex:1.4}
   .bar-btn.primary:active{background:var(--accent2)}
+  .bar-btn.accent{color:var(--gold);border-color:rgba(201,139,94,.5)}
+  .bar-btn.accent:active{background:var(--card2)}
+
+  /* Assistant */
+  .ai-modes{display:flex;gap:6px;flex-wrap:wrap;margin:16px 0 18px}
+  .ai-mode{flex:1 1 auto;padding:10px 8px;border-radius:9px;border:1px solid var(--line);background:var(--card);color:var(--muted);font-size:.78rem;font-weight:600;cursor:pointer;text-align:center;white-space:nowrap}
+  .ai-mode.active{background:var(--accent);border-color:var(--accent);color:#fff}
+  .ai-hint{color:var(--soft);font-size:.82rem;line-height:1.45;margin:0 0 14px}
+  .ai-key{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:14px;margin-bottom:16px}
+  .ai-key .lbl{font-size:.72rem;color:var(--muted);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+  .ai-keyrow{display:flex;gap:8px}
+  .ai-keyrow input{flex:1;padding:10px 12px;border-radius:8px;border:1px solid var(--line);background:var(--bg2);color:var(--text);font-size:.9rem;outline:none}
+  .ai-keysmall{font-size:.74rem;color:var(--soft);margin-top:8px}
+  .ai-keysmall a{color:var(--gold)}
+  .ai-saved{display:flex;justify-content:space-between;align-items:center;font-size:.78rem;color:var(--soft);margin-bottom:14px}
+  .ai-saved a{color:var(--gold);cursor:pointer}
+  .ai-results{margin-top:6px}
+  .ai-msg{color:var(--text);font-size:.95rem;line-height:1.55;font-family:var(--serif);margin:4px 0 18px}
+  .ai-rec{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px}
+  .ai-rec h4{margin:0 0 4px;font-family:var(--serif);font-size:1.2rem;font-weight:400}
+  .ai-rec .rc{color:var(--accent2);font-size:.66rem;letter-spacing:1.6px;text-transform:uppercase;font-weight:700}
+  .ai-rec ul{list-style:none;padding:0;margin:12px 0 0}
+  .ai-rec ul li{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px solid rgba(72,32,30,.4);font-size:.9rem}
+  .ai-rec ul li:last-child{border-bottom:none}
+  .ai-rec ul li .q{color:var(--gold);font-weight:600;white-space:nowrap}
+  .ai-rec ol{margin:12px 0 0;padding-left:18px;font-size:.9rem;line-height:1.5;color:var(--muted)}
+  .ai-rec .nt{margin:12px 0 0;font-style:italic;color:var(--soft);font-size:.86rem;font-family:var(--serif)}
+  .ai-rec .save{margin-top:14px;width:100%;padding:11px;border-radius:8px;border:1px solid var(--accent);background:transparent;color:var(--accent2);font-size:.74rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;cursor:pointer}
+  .ai-rec .save.done{background:var(--card2);color:var(--soft);border-color:var(--line)}
+  .spinner{width:26px;height:26px;border:2.5px solid var(--line);border-top-color:var(--accent2);border-radius:50%;animation:spin .8s linear infinite;margin:30px auto}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .ai-err{background:rgba(178,58,50,.12);border:1px solid rgba(178,58,50,.4);color:#e8a08f;padding:12px 14px;border-radius:9px;font-size:.85rem;line-height:1.45;margin-top:10px}
 
   /* Overlay / sheet */
   .overlay{position:fixed;inset:0;background:rgba(8,4,4,.72);backdrop-filter:blur(4px);z-index:50;display:none;align-items:flex-end;justify-content:center}
@@ -167,6 +199,7 @@
 
 <div class="bottombar">
   <button class="bar-btn primary" id="addBtn">Añadir</button>
+  <button class="bar-btn accent" id="aiBtn">Asistente</button>
   <button class="bar-btn" id="importBtn">Importar</button>
   <button class="bar-btn" id="exportBtn">Exportar</button>
   <input type="file" id="importFile" accept="application/json,.json" hidden>
@@ -353,6 +386,7 @@ function closeOverlay(){ $('#overlay').classList.remove('open'); document.body.s
 $('#overlay').onclick = e=>{ if(e.target===$('#overlay')) closeOverlay(); };
 
 $('#addBtn').onclick = ()=>showForm(null);
+$('#aiBtn').onclick = ()=>{ aiLastResult=null; showAssistant(); };
 $('#search').oninput = e=>{ query=e.target.value; render(); };
 $('#catFilter').onchange = e=>{ filter=e.target.value; render(); };
 
@@ -388,6 +422,187 @@ $('#importFile').onchange = e=>{
   };
   reader.readAsText(file); e.target.value='';
 };
+
+/* ---------- Asistente IA (Claude) ---------- */
+const AI_KEY = 'mi_cocteleria_apikey';
+const AI_MODEL = 'claude-opus-4-8'; // puedes cambiarlo por claude-sonnet-4-6 (más barato)
+let aiMode = 'crear';
+let aiLastResult = null;
+
+const AI_MODES = [
+  {id:'crear',   label:'Crear',        hint:'Dame un tema, una base o un estilo y te invento cócteles nuevos.', ph:'Ej. algo refrescante con mezcal y pepino / un twist invernal de Negroni'},
+  {id:'tengo',   label:'Con lo que tengo', hint:'Dime qué tienes en casa y te propongo qué preparar.', ph:'Ej. ginebra, lima, tónica, romero, miel'},
+  {id:'variar',  label:'Variación',    hint:'Elige un cóctel tuyo y te creo variaciones.', ph:'Opcional: cómo quieres la variación (sin alcohol, más cítrica…)'},
+  {id:'ideas',   label:'Ingredientes', hint:'Te sugiero ingredientes o siropes nuevos que peguen con tu carta.', ph:'Opcional: hacia dónde tirar (amargos, tropicales, herbáceos…)'}
+];
+
+const AI_SCHEMA = {
+  type:'object', additionalProperties:false,
+  required:['message','recipes'],
+  properties:{
+    message:{type:'string'},
+    recipes:{type:'array', items:{
+      type:'object', additionalProperties:false,
+      required:['name','category','glass','tags','ingredients','steps','notes'],
+      properties:{
+        name:{type:'string'}, category:{type:'string'}, glass:{type:'string'},
+        tags:{type:'array', items:{type:'string'}},
+        ingredients:{type:'array', items:{type:'object', additionalProperties:false, required:['q','n'],
+          properties:{q:{type:'string'}, n:{type:'string'}}}},
+        steps:{type:'array', items:{type:'string'}},
+        notes:{type:'string'}
+      }
+    }}
+  }
+};
+
+function cartaResumen(){
+  return data.filter(c=>c.category!=='Siropes y prep.')
+    .map(c=>`${c.name} (${c.category}): ${(c.ingredients||[]).map(i=>i.n).join(', ')}`).join('\n');
+}
+
+function showAssistant(){
+  const key = localStorage.getItem(AI_KEY);
+  const m = AI_MODES.find(x=>x.id===aiMode);
+  const cocteles = data.filter(c=>c.category!=='Siropes y prep.');
+  $('#sheet').innerHTML = `
+    <div class="grip"></div>
+    <h2>Asistente</h2>
+    <div class="ai-modes">
+      ${AI_MODES.map(x=>`<button class="ai-mode${x.id===aiMode?' active':''}" data-m="${x.id}">${x.label}</button>`).join('')}
+    </div>
+    <p class="ai-hint">${m.hint}</p>
+    ${!key ? `
+      <div class="ai-key">
+        <div class="lbl">Tu clave API de Claude</div>
+        <div class="ai-keyrow">
+          <input id="ai_key" type="password" placeholder="sk-ant-..." autocomplete="off">
+          <button class="btn primary" id="ai_savekey" style="flex:0 0 auto;padding:10px 16px">Guardar</button>
+        </div>
+        <div class="ai-keysmall">Se guarda solo en este dispositivo. Consíguela en <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">console.anthropic.com</a>.</div>
+      </div>` : `
+      <div class="ai-saved"><span>Clave guardada en este dispositivo</span><a id="ai_clearkey">Cambiar</a></div>`}
+    ${aiMode==='variar' ? `
+      <div class="field"><label>Cóctel a variar</label>
+        <select id="ai_base">${cocteles.map(c=>`<option value="${esc(c.id)}">${esc(c.name)}</option>`).join('')}</select>
+      </div>` : ''}
+    <div class="field">
+      <label>${aiMode==='variar'?'Indicaciones (opcional)':aiMode==='ideas'?'Enfoque (opcional)':'Qué quieres'}</label>
+      <textarea id="ai_input" placeholder="${esc(m.ph)}"></textarea>
+    </div>
+    <div class="detail-actions">
+      <button class="btn" id="ai_close">Cerrar</button>
+      <button class="btn primary" id="ai_go"${!key?' disabled style="opacity:.5"':''}>Generar</button>
+    </div>
+    <div class="ai-results" id="ai_results"></div>
+  `;
+  openOverlay();
+
+  sheetEl().querySelectorAll('.ai-mode').forEach(b=> b.onclick=()=>{ aiMode=b.dataset.m; aiLastResult=null; showAssistant(); });
+  $('#ai_close').onclick = closeOverlay;
+  const savekey = $('#ai_savekey');
+  if(savekey) savekey.onclick = ()=>{
+    const v = $('#ai_key').value.trim();
+    if(!v){ toast('Pega tu clave'); return; }
+    localStorage.setItem(AI_KEY, v); toast('Clave guardada'); showAssistant();
+  };
+  const clearkey = $('#ai_clearkey');
+  if(clearkey) clearkey.onclick = ()=>{ if(confirm('¿Borrar la clave de este dispositivo?')){ localStorage.removeItem(AI_KEY); showAssistant(); } };
+  const go = $('#ai_go');
+  if(go) go.onclick = runAssistant;
+  if(aiLastResult) renderAIResults(aiLastResult);
+}
+function sheetEl(){ return $('#sheet'); }
+
+async function runAssistant(){
+  const key = localStorage.getItem(AI_KEY);
+  if(!key){ toast('Pon tu clave primero'); return; }
+  const input = ($('#ai_input').value||'').trim();
+  const carta = cartaResumen();
+  let prompt;
+  if(aiMode==='crear'){
+    prompt = `Crea 1 o 2 cócteles nuevos y originales${input?` basados en: ${input}`:''}. Que encajen con el estilo de mi carta y no repitan los que ya tengo.\n\nMi carta actual:\n${carta}`;
+  } else if(aiMode==='tengo'){
+    prompt = `Tengo estos ingredientes en casa: ${input||'(no especificados)'}. Sugiéreme 2 o 3 cócteles que pueda preparar con eso (pueden ser de mi carta o nuevos). En "message" explica brevemente las opciones; en "recipes" incluye las recetas concretas.\n\nMi carta actual:\n${carta}`;
+  } else if(aiMode==='variar'){
+    const base = data.find(c=>c.id===$('#ai_base').value);
+    if(!base){ toast('Elige un cóctel'); return; }
+    prompt = `Crea 2 variaciones del cóctel "${base.name}"${input?` (${input})`:''}.\n\nReceta original:\nIngredientes: ${(base.ingredients||[]).map(i=>`${i.q} ${i.n}`).join('; ')}\nPasos: ${(base.steps||[]).join(' ')}\nNotas: ${base.notes||''}`;
+  } else {
+    prompt = `Sugiéreme 4 o 5 ingredientes, licores o siropes nuevos que combinarían bien con mi carta${input?` (enfoque: ${input})`:''}. Explica cada uno en "message" (con qué de mi carta combina). En "recipes" puedes incluir 1 cóctel de ejemplo que use alguno de ellos, o dejarlo vacío.\n\nMi carta actual:\n${carta}`;
+  }
+  const system = 'Eres un bartender experto y creativo. Respondes SIEMPRE en español de España. Las cantidades van en ml (o medidas claras como "1 cdta", "Top"). Devuelves la respuesta en el formato JSON indicado: "message" es un texto breve y útil, y "recipes" es una lista de recetas completas (categoría como "Con alcohol", "Sin alcohol" o "Siropes y prep."). Sé conciso y práctico.';
+
+  $('#ai_results').innerHTML = '<div class="spinner"></div>';
+  $('#ai_go').disabled = true;
+  try{
+    const result = await callClaude(system, prompt);
+    aiLastResult = result;
+    renderAIResults(result);
+  }catch(err){
+    $('#ai_results').innerHTML = `<div class="ai-err">No se pudo generar.<br>${esc(err.message||err)}</div>`;
+  }finally{
+    const g=$('#ai_go'); if(g) g.disabled=false;
+  }
+}
+
+async function callClaude(system, userPrompt){
+  const key = localStorage.getItem(AI_KEY);
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method:'POST',
+    headers:{
+      'content-type':'application/json',
+      'x-api-key': key,
+      'anthropic-version':'2023-06-01',
+      'anthropic-dangerous-direct-browser-access':'true'
+    },
+    body: JSON.stringify({
+      model: AI_MODEL,
+      max_tokens: 4000,
+      system,
+      messages:[{role:'user', content:userPrompt}],
+      output_config:{ format:{ type:'json_schema', schema: AI_SCHEMA } }
+    })
+  });
+  if(!res.ok){
+    let msg = 'Error '+res.status;
+    try{ const e=await res.json(); if(e.error&&e.error.message) msg=e.error.message; }catch(_){}
+    if(res.status===401) msg='Clave API no válida. Revísala en Cambiar.';
+    throw new Error(msg);
+  }
+  const dataR = await res.json();
+  const tb = (dataR.content||[]).find(b=>b.type==='text');
+  if(!tb) throw new Error('Respuesta vacía');
+  return JSON.parse(tb.text);
+}
+
+function renderAIResults(r){
+  const box = $('#ai_results'); if(!box) return;
+  let html = r.message ? `<div class="ai-msg">${esc(r.message)}</div>` : '';
+  (r.recipes||[]).forEach((rec,idx)=>{
+    html += `
+      <div class="ai-rec">
+        <div class="rc">${esc(rec.category||'')}${rec.glass?` · ${esc(rec.glass)}`:''}</div>
+        <h4>${esc(rec.name)}</h4>
+        ${(rec.ingredients||[]).length?`<ul>${rec.ingredients.map(i=>`<li><span>${esc(i.n)}</span><span class="q">${esc(i.q||'')}</span></li>`).join('')}</ul>`:''}
+        ${(rec.steps||[]).length?`<ol>${rec.steps.map(s=>`<li>${esc(s)}</li>`).join('')}</ol>`:''}
+        ${rec.notes?`<div class="nt">${esc(rec.notes)}</div>`:''}
+        <button class="save" data-i="${idx}">Guardar en mi carta</button>
+      </div>`;
+  });
+  box.innerHTML = html || '<div class="ai-err">No vinieron recetas. Prueba a reformular.</div>';
+  box.querySelectorAll('.save').forEach(b=> b.onclick=()=>{
+    const rec = r.recipes[+b.dataset.i];
+    const obj = {
+      id: uid(), name: rec.name, category: rec.category||'', glass: rec.glass||'',
+      tags: rec.tags||[], ingredients: rec.ingredients||[], steps: rec.steps||[],
+      notes: rec.notes||'', favorite:false
+    };
+    data.push(obj); save(); render();
+    b.textContent = 'Guardado ✓'; b.classList.add('done'); b.disabled = true;
+    toast(`"${rec.name}" añadido a tu carta`);
+  });
+}
 
 let toastT;
 function toast(msg){
