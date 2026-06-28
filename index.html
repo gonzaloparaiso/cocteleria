@@ -85,10 +85,11 @@
     padding:12px 14px calc(12px + env(safe-area-inset-bottom));max-width:760px;margin:0 auto;
   }
   .bar-btn{
-    flex:1;min-width:0;padding:12px 6px;border-radius:9px;border:1px solid var(--line);background:var(--card);
-    color:var(--muted);font-size:.7rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;cursor:pointer;transition:.15s;
+    flex:1;min-width:0;padding:13px 0;border-radius:11px;border:1px solid var(--line);background:var(--card);
+    color:var(--muted);cursor:pointer;transition:.15s;display:flex;align-items:center;justify-content:center;
   }
-  .bar-btn:active{transform:scale(.97)}
+  .bar-btn svg{width:24px;height:24px;display:block}
+  .bar-btn:active{transform:scale(.95)}
   .bar-btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
   .bar-btn.primary:active{background:var(--accent2)}
   .bar-btn.accent{color:var(--gold);border-color:rgba(201,139,94,.5)}
@@ -201,10 +202,18 @@
 </div>
 
 <div class="bottombar">
-  <button class="bar-btn primary" id="addBtn">Añadir</button>
-  <button class="bar-btn accent" id="aiBtn">Asistente</button>
-  <button class="bar-btn" id="importBtn">Importar</button>
-  <button class="bar-btn" id="exportBtn">Exportar</button>
+  <button class="bar-btn primary" id="addBtn" aria-label="Añadir" title="Añadir cóctel">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+  </button>
+  <button class="bar-btn accent" id="aiBtn" aria-label="Asistente" title="Asistente IA">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3l1.7 5.3L19 10l-5.3 1.7L12 17l-1.7-5.3L5 10l5.3-1.7z"/><path d="M18.5 14.5l.6 1.9 1.9.6-1.9.6-.6 1.9-.6-1.9L16 17l1.9-.6z"/></svg>
+  </button>
+  <button class="bar-btn" id="importBtn" aria-label="Importar" title="Importar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V4"/><path d="m7 9 5-5 5 5"/><path d="M5 19h14"/></svg>
+  </button>
+  <button class="bar-btn" id="exportBtn" aria-label="Exportar" title="Exportar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="m7 10 5 5 5-5"/><path d="M5 19h14"/></svg>
+  </button>
   <input type="file" id="importFile" accept="application/json,.json" hidden>
 </div>
 
