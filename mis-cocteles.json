@@ -5,15 +5,40 @@
     "category": "Con alcohol",
     "favorite": false,
     "glass": "",
-    "tags": ["mezcal", "tequila", "ahumado"],
+    "tags": [
+      "mezcal",
+      "tequila",
+      "ahumado"
+    ],
     "ingredients": [
-      {"q": "25 ml", "n": "Mezcal"},
-      {"q": "25 ml", "n": "Tequila blanco"},
-      {"q": "25 ml", "n": "Sirope de pico de gallo / tomate"},
-      {"q": "10 ml", "n": "Lima"},
-      {"q": "5 ml", "n": "Mezcal con ñora (o 2 gotas de Tabasco)"},
-      {"q": "Pizca", "n": "Sal"},
-      {"q": "10 ml", "n": "Cointreau"}
+      {
+        "q": "25 ml",
+        "n": "Mezcal"
+      },
+      {
+        "q": "25 ml",
+        "n": "Tequila blanco"
+      },
+      {
+        "q": "25 ml",
+        "n": "Sirope de pico de gallo / tomate"
+      },
+      {
+        "q": "10 ml",
+        "n": "Lima"
+      },
+      {
+        "q": "5 ml",
+        "n": "Mezcal con ñora (o 2 gotas de Tabasco)"
+      },
+      {
+        "q": "Pizca",
+        "n": "Sal"
+      },
+      {
+        "q": "10 ml",
+        "n": "Cointreau"
+      }
     ],
     "steps": [],
     "notes": ""
@@ -24,12 +49,27 @@
     "category": "Con alcohol",
     "favorite": false,
     "glass": "",
-    "tags": ["vodka", "tomate"],
+    "tags": [
+      "vodka",
+      "tomate"
+    ],
     "ingredients": [
-      {"q": "45 ml", "n": "Vodka"},
-      {"q": "30 ml", "n": "Zumo de limón"},
-      {"q": "20 ml", "n": "Sirope de tomate"},
-      {"q": "", "n": "Cilantro crudo"}
+      {
+        "q": "45 ml",
+        "n": "Vodka"
+      },
+      {
+        "q": "30 ml",
+        "n": "Zumo de limón"
+      },
+      {
+        "q": "20 ml",
+        "n": "Sirope de tomate"
+      },
+      {
+        "q": "",
+        "n": "Cilantro crudo"
+      }
     ],
     "steps": [],
     "notes": ""
@@ -40,12 +80,28 @@
     "category": "Con alcohol",
     "favorite": false,
     "glass": "",
-    "tags": ["whiskey", "bourbon", "clara"],
+    "tags": [
+      "whiskey",
+      "bourbon",
+      "clara"
+    ],
     "ingredients": [
-      {"q": "60 ml", "n": "Whiskey (bourbon o irlandés suave)"},
-      {"q": "25 ml", "n": "Zumo de limón recién exprimido"},
-      {"q": "20 ml", "n": "Sirope simple (1:1 agua + azúcar)"},
-      {"q": "1 ud", "n": "Clara de huevo (o 20 ml de aquafaba para opción vegana)"}
+      {
+        "q": "60 ml",
+        "n": "Whiskey (bourbon o irlandés suave)"
+      },
+      {
+        "q": "25 ml",
+        "n": "Zumo de limón recién exprimido"
+      },
+      {
+        "q": "20 ml",
+        "n": "Sirope simple (1:1 agua + azúcar)"
+      },
+      {
+        "q": "1 ud",
+        "n": "Clara de huevo (o 20 ml de aquafaba para opción vegana)"
+      }
     ],
     "steps": [],
     "notes": ""
@@ -56,12 +112,27 @@
     "category": "Con alcohol",
     "favorite": false,
     "glass": "",
-    "tags": ["whiskey", "sake"],
+    "tags": [
+      "whiskey",
+      "sake"
+    ],
     "ingredients": [
-      {"q": "30/40 ml", "n": "Whiskey"},
-      {"q": "20/30 ml", "n": "Sake"},
-      {"q": "5 ml", "n": "Choya"},
-      {"q": "100 ml", "n": "Shiso"}
+      {
+        "q": "30/40 ml",
+        "n": "Whiskey"
+      },
+      {
+        "q": "20/30 ml",
+        "n": "Sake"
+      },
+      {
+        "q": "5 ml",
+        "n": "Choya"
+      },
+      {
+        "q": "100 ml",
+        "n": "Shiso"
+      }
     ],
     "steps": [],
     "notes": ""
@@ -72,12 +143,27 @@
     "category": "Con alcohol",
     "favorite": false,
     "glass": "",
-    "tags": ["gin", "lavanda"],
+    "tags": [
+      "gin",
+      "lavanda"
+    ],
     "ingredients": [
-      {"q": "60 ml", "n": "Gin"},
-      {"q": "25 ml", "n": "Sirope de lavanda"},
-      {"q": "30 ml", "n": "Zumo de limón"},
-      {"q": "Top", "n": "Agua con gas"}
+      {
+        "q": "60 ml",
+        "n": "Gin"
+      },
+      {
+        "q": "25 ml",
+        "n": "Sirope de lavanda"
+      },
+      {
+        "q": "30 ml",
+        "n": "Zumo de limón"
+      },
+      {
+        "q": "Top",
+        "n": "Agua con gas"
+      }
     ],
     "steps": [],
     "notes": ""
@@ -88,11 +174,23 @@
     "category": "Con alcohol",
     "favorite": false,
     "glass": "",
-    "tags": ["bourbon", "jerez"],
+    "tags": [
+      "bourbon",
+      "jerez"
+    ],
     "ingredients": [
-      {"q": "30 ml", "n": "Bourbon"},
-      {"q": "30 ml", "n": "Gardeum"},
-      {"q": "30 ml", "n": "Jerez seco"}
+      {
+        "q": "30 ml",
+        "n": "Bourbon"
+      },
+      {
+        "q": "30 ml",
+        "n": "Gardeum"
+      },
+      {
+        "q": "30 ml",
+        "n": "Jerez seco"
+      }
     ],
     "steps": [],
     "notes": ""
@@ -103,13 +201,31 @@
     "category": "Con alcohol",
     "favorite": false,
     "glass": "",
-    "tags": ["gin", "japonés"],
+    "tags": [
+      "gin",
+      "japonés"
+    ],
     "ingredients": [
-      {"q": "50 ml", "n": "Gin japonesa"},
-      {"q": "20/15 ml", "n": "Zumo de lima"},
-      {"q": "10 ml", "n": "Choya con yuzu"},
-      {"q": "10 ml", "n": "Gardeum"},
-      {"q": "Top", "n": "Agua con gas"}
+      {
+        "q": "50 ml",
+        "n": "Gin japonesa"
+      },
+      {
+        "q": "20/15 ml",
+        "n": "Zumo de lima"
+      },
+      {
+        "q": "10 ml",
+        "n": "Choya con yuzu"
+      },
+      {
+        "q": "10 ml",
+        "n": "Gardeum"
+      },
+      {
+        "q": "Top",
+        "n": "Agua con gas"
+      }
     ],
     "steps": [],
     "notes": ""
@@ -120,14 +236,35 @@
     "category": "Con alcohol",
     "favorite": false,
     "glass": "",
-    "tags": ["mezcal", "picante"],
+    "tags": [
+      "mezcal",
+      "picante"
+    ],
     "ingredients": [
-      {"q": "50 ml", "n": "Mezcal"},
-      {"q": "20 ml", "n": "Italicus"},
-      {"q": "20 ml", "n": "Choya con yuzu"},
-      {"q": "15 ml", "n": "Limón"},
-      {"q": "1 flus", "n": "Tabasco"},
-      {"q": "0,5 ramas", "n": "Cilantro"}
+      {
+        "q": "50 ml",
+        "n": "Mezcal"
+      },
+      {
+        "q": "20 ml",
+        "n": "Italicus"
+      },
+      {
+        "q": "20 ml",
+        "n": "Choya con yuzu"
+      },
+      {
+        "q": "15 ml",
+        "n": "Limón"
+      },
+      {
+        "q": "1 flus",
+        "n": "Tabasco"
+      },
+      {
+        "q": "0,5 ramas",
+        "n": "Cilantro"
+      }
     ],
     "steps": [],
     "notes": ""
@@ -138,13 +275,31 @@
     "category": "Con alcohol",
     "favorite": false,
     "glass": "",
-    "tags": ["gin", "miso"],
+    "tags": [
+      "gin",
+      "miso"
+    ],
     "ingredients": [
-      {"q": "50 ml", "n": "Gin Nut"},
-      {"q": "50 ml", "n": "Italicus"},
-      {"q": "25 ml", "n": "Limón"},
-      {"q": "1/2 tbsp", "n": "Caramelo de miso"},
-      {"q": "1 ml", "n": "Agua de bitxo"}
+      {
+        "q": "50 ml",
+        "n": "Gin Nut"
+      },
+      {
+        "q": "50 ml",
+        "n": "Italicus"
+      },
+      {
+        "q": "25 ml",
+        "n": "Limón"
+      },
+      {
+        "q": "1/2 tbsp",
+        "n": "Caramelo de miso"
+      },
+      {
+        "q": "1 ml",
+        "n": "Agua de bitxo"
+      }
     ],
     "steps": [],
     "notes": ""
@@ -155,11 +310,22 @@
     "category": "Con alcohol",
     "favorite": false,
     "glass": "",
-    "tags": ["bourbon"],
+    "tags": [
+      "bourbon"
+    ],
     "ingredients": [
-      {"q": "50 ml", "n": "Bourbon"},
-      {"q": "20 ml", "n": "St. Germain"},
-      {"q": "15 ml", "n": "Italicus"}
+      {
+        "q": "50 ml",
+        "n": "Bourbon"
+      },
+      {
+        "q": "20 ml",
+        "n": "St. Germain"
+      },
+      {
+        "q": "15 ml",
+        "n": "Italicus"
+      }
     ],
     "steps": [],
     "notes": ""
@@ -170,11 +336,24 @@
     "category": "Siropes y prep.",
     "favorite": false,
     "glass": "",
-    "tags": ["sirope", "shiso", "preparación"],
+    "tags": [
+      "sirope",
+      "shiso",
+      "preparación"
+    ],
     "ingredients": [
-      {"q": "1 L", "n": "Agua"},
-      {"q": "100 g", "n": "Azúcar"},
-      {"q": "1,5 g", "n": "Ácido cítrico"}
+      {
+        "q": "1 L",
+        "n": "Agua"
+      },
+      {
+        "q": "100 g",
+        "n": "Azúcar"
+      },
+      {
+        "q": "1,5 g",
+        "n": "Ácido cítrico"
+      }
     ],
     "steps": [
       "Hervir el shiso en agua para extraer el color (el agua queda turbia/sucia).",
@@ -183,17 +362,193 @@
     "notes": "Base que uso en la Sargantana."
   },
   {
+    "id": "c-sirope-jengibre",
+    "name": "Sirope de jengibre",
+    "category": "Siropes y prep.",
+    "favorite": false,
+    "glass": "",
+    "tags": [
+      "sirope",
+      "jengibre",
+      "preparación"
+    ],
+    "ingredients": [
+      {
+        "q": "100 ml",
+        "n": "Agua"
+      },
+      {
+        "q": "100 g",
+        "n": "Azúcar"
+      },
+      {
+        "q": "30-40 g",
+        "n": "Jengibre fresco rallado o en láminas"
+      }
+    ],
+    "steps": [
+      "Calentar el agua con el azúcar al fuego hasta disolver.",
+      "Añadir el jengibre y retirar del fuego.",
+      "Infusionar 10 min fuera del fuego.",
+      "Colar y guardar en bote en nevera (~2 semanas)."
+    ],
+    "notes": ""
+  },
+  {
+    "id": "c-sirope-romero",
+    "name": "Sirope de romero",
+    "category": "Siropes y prep.",
+    "favorite": false,
+    "glass": "",
+    "tags": [
+      "sirope",
+      "romero",
+      "preparación"
+    ],
+    "ingredients": [
+      {
+        "q": "100 ml",
+        "n": "Agua"
+      },
+      {
+        "q": "100 g",
+        "n": "Azúcar"
+      },
+      {
+        "q": "2-3 ramas",
+        "n": "Romero"
+      }
+    ],
+    "steps": [
+      "Calentar el agua con el azúcar al fuego hasta disolver.",
+      "Añadir el romero y retirar del fuego.",
+      "Infusionar 10 min fuera del fuego.",
+      "Colar y guardar en bote en nevera (~2 semanas)."
+    ],
+    "notes": ""
+  },
+  {
+    "id": "c-sirope-albahaca",
+    "name": "Sirope de albahaca",
+    "category": "Siropes y prep.",
+    "favorite": false,
+    "glass": "",
+    "tags": [
+      "sirope",
+      "albahaca",
+      "preparación"
+    ],
+    "ingredients": [
+      {
+        "q": "100 ml",
+        "n": "Agua"
+      },
+      {
+        "q": "100 g",
+        "n": "Azúcar"
+      },
+      {
+        "q": "12-15 hojas",
+        "n": "Albahaca"
+      }
+    ],
+    "steps": [
+      "Calentar el agua con el azúcar al fuego hasta disolver.",
+      "Añadir la albahaca y retirar del fuego.",
+      "Infusionar 10 min fuera del fuego.",
+      "Colar y guardar en bote en nevera (~2 semanas)."
+    ],
+    "notes": ""
+  },
+  {
+    "id": "c-sirope-miel-jengibre",
+    "name": "Sirope de miel y jengibre",
+    "category": "Siropes y prep.",
+    "favorite": false,
+    "glass": "",
+    "tags": [
+      "sirope",
+      "miel",
+      "jengibre",
+      "preparación"
+    ],
+    "ingredients": [
+      {
+        "q": "100 ml",
+        "n": "Agua"
+      },
+      {
+        "q": "100 g",
+        "n": "Miel"
+      },
+      {
+        "q": "30 g",
+        "n": "Jengibre"
+      }
+    ],
+    "steps": [
+      "Calentar el agua con la miel hasta disolver.",
+      "Añadir el jengibre y retirar del fuego.",
+      "Infusionar 10 min fuera del fuego.",
+      "Colar y guardar en bote en nevera (~2 semanas)."
+    ],
+    "notes": "El clásico para el Penicillin."
+  },
+  {
+    "id": "c-sirope-agave",
+    "name": "Sirope de agave",
+    "category": "Siropes y prep.",
+    "favorite": false,
+    "glass": "",
+    "tags": [
+      "sirope",
+      "agave",
+      "preparación"
+    ],
+    "ingredients": [
+      {
+        "q": "2 partes",
+        "n": "Agave"
+      },
+      {
+        "q": "1 parte",
+        "n": "Agua tibia"
+      }
+    ],
+    "steps": [
+      "Mezclar el agave con el agua tibia y remover hasta integrar.",
+      "No necesita cocción. Guardar en bote en nevera (~2 semanas)."
+    ],
+    "notes": "El más rápido: no hay que cocinar."
+  },
+  {
     "id": "c-penicillin-sobrio",
     "name": "Penicillin sobrio",
     "category": "Sin alcohol",
     "favorite": false,
     "glass": "Vaso largo",
-    "tags": ["sin alcohol", "ahumado", "té"],
+    "tags": [
+      "sin alcohol",
+      "ahumado",
+      "té"
+    ],
     "ingredients": [
-      {"q": "25 ml", "n": "Limón"},
-      {"q": "20 ml", "n": "Sirope de miel y jengibre"},
-      {"q": "100 ml", "n": "Té lapsang souchong frío y cargado"},
-      {"q": "3 gotas", "n": "Angostura"}
+      {
+        "q": "25 ml",
+        "n": "Limón"
+      },
+      {
+        "q": "20 ml",
+        "n": "Sirope de miel y jengibre"
+      },
+      {
+        "q": "100 ml",
+        "n": "Té lapsang souchong frío y cargado"
+      },
+      {
+        "q": "3 gotas",
+        "n": "Angostura"
+      }
     ],
     "steps": [
       "Construir en el vaso sobre hielo.",
@@ -207,12 +562,27 @@
     "category": "Sin alcohol",
     "favorite": false,
     "glass": "Vaso largo",
-    "tags": ["sin alcohol", "jengibre"],
+    "tags": [
+      "sin alcohol",
+      "jengibre"
+    ],
     "ingredients": [
-      {"q": "25 ml", "n": "Lima"},
-      {"q": "20 ml", "n": "Sirope de jengibre"},
-      {"q": "100 ml", "n": "Soda (o ginger ale si lo quieres más dulce y picante)"},
-      {"q": "3 gotas", "n": "Angostura"}
+      {
+        "q": "25 ml",
+        "n": "Lima"
+      },
+      {
+        "q": "20 ml",
+        "n": "Sirope de jengibre"
+      },
+      {
+        "q": "100 ml",
+        "n": "Soda (o ginger ale si lo quieres más dulce y picante)"
+      },
+      {
+        "q": "3 gotas",
+        "n": "Angostura"
+      }
     ],
     "steps": [
       "Construir en el vaso sobre hielo.",
@@ -226,13 +596,31 @@
     "category": "Sin alcohol",
     "favorite": false,
     "glass": "Vaso largo",
-    "tags": ["sin alcohol", "romero"],
+    "tags": [
+      "sin alcohol",
+      "romero"
+    ],
     "ingredients": [
-      {"q": "25 ml", "n": "Limón"},
-      {"q": "15 ml", "n": "Sirope de romero"},
-      {"q": "1 cdta", "n": "Miel"},
-      {"q": "100 ml", "n": "Tónica"},
-      {"q": "3 gotas", "n": "Angostura"}
+      {
+        "q": "25 ml",
+        "n": "Limón"
+      },
+      {
+        "q": "15 ml",
+        "n": "Sirope de romero"
+      },
+      {
+        "q": "1 cdta",
+        "n": "Miel"
+      },
+      {
+        "q": "100 ml",
+        "n": "Tónica"
+      },
+      {
+        "q": "3 gotas",
+        "n": "Angostura"
+      }
     ],
     "steps": [
       "Construir en el vaso sobre hielo.",
@@ -246,13 +634,31 @@
     "category": "Sin alcohol",
     "favorite": false,
     "glass": "Vaso largo",
-    "tags": ["sin alcohol", "albahaca"],
+    "tags": [
+      "sin alcohol",
+      "albahaca"
+    ],
     "ingredients": [
-      {"q": "25 ml", "n": "Lima"},
-      {"q": "20 ml", "n": "Sirope de albahaca"},
-      {"q": "4-5 hojas", "n": "Albahaca majada en el vaso"},
-      {"q": "90 ml", "n": "Soda"},
-      {"q": "2 gotas", "n": "Angostura"}
+      {
+        "q": "25 ml",
+        "n": "Lima"
+      },
+      {
+        "q": "20 ml",
+        "n": "Sirope de albahaca"
+      },
+      {
+        "q": "4-5 hojas",
+        "n": "Albahaca majada en el vaso"
+      },
+      {
+        "q": "90 ml",
+        "n": "Soda"
+      },
+      {
+        "q": "2 gotas",
+        "n": "Angostura"
+      }
     ],
     "steps": [
       "Majar la albahaca en el vaso.",
@@ -266,12 +672,28 @@
     "category": "Sin alcohol",
     "favorite": false,
     "glass": "Vaso largo",
-    "tags": ["sin alcohol", "jengibre", "albahaca"],
+    "tags": [
+      "sin alcohol",
+      "jengibre",
+      "albahaca"
+    ],
     "ingredients": [
-      {"q": "25 ml", "n": "Lima"},
-      {"q": "20 ml", "n": "Sirope de jengibre"},
-      {"q": "4 hojas", "n": "Albahaca majada"},
-      {"q": "90 ml", "n": "Soda"}
+      {
+        "q": "25 ml",
+        "n": "Lima"
+      },
+      {
+        "q": "20 ml",
+        "n": "Sirope de jengibre"
+      },
+      {
+        "q": "4 hojas",
+        "n": "Albahaca majada"
+      },
+      {
+        "q": "90 ml",
+        "n": "Soda"
+      }
     ],
     "steps": [
       "Majar la albahaca en el vaso.",
@@ -285,12 +707,27 @@
     "category": "Sin alcohol",
     "favorite": false,
     "glass": "Vaso largo",
-    "tags": ["sin alcohol", "margarita"],
+    "tags": [
+      "sin alcohol",
+      "margarita"
+    ],
     "ingredients": [
-      {"q": "30 ml", "n": "Lima"},
-      {"q": "20 ml", "n": "Agave"},
-      {"q": "90 ml", "n": "Soda"},
-      {"q": "4-5 gotas", "n": "Angostura"}
+      {
+        "q": "30 ml",
+        "n": "Lima"
+      },
+      {
+        "q": "20 ml",
+        "n": "Agave"
+      },
+      {
+        "q": "90 ml",
+        "n": "Soda"
+      },
+      {
+        "q": "4-5 gotas",
+        "n": "Angostura"
+      }
     ],
     "steps": [
       "Construir en el vaso sobre hielo.",
@@ -304,12 +741,28 @@
     "category": "Sin alcohol",
     "favorite": false,
     "glass": "Copa",
-    "tags": ["sin alcohol", "sour", "espuma"],
+    "tags": [
+      "sin alcohol",
+      "sour",
+      "espuma"
+    ],
     "ingredients": [
-      {"q": "30 ml", "n": "Limón"},
-      {"q": "25 ml", "n": "Sirope de miel y jengibre"},
-      {"q": "15 ml", "n": "Aquafaba (agua del bote de garbanzos)"},
-      {"q": "3 gotas", "n": "Angostura (al final, por encima)"}
+      {
+        "q": "30 ml",
+        "n": "Limón"
+      },
+      {
+        "q": "25 ml",
+        "n": "Sirope de miel y jengibre"
+      },
+      {
+        "q": "15 ml",
+        "n": "Aquafaba (agua del bote de garbanzos)"
+      },
+      {
+        "q": "3 gotas",
+        "n": "Angostura (al final, por encima)"
+      }
     ],
     "steps": [
       "Agitar fuerte SIN hielo 15 seg para montar la espuma.",
@@ -325,12 +778,28 @@
     "category": "Sin alcohol",
     "favorite": false,
     "glass": "Vaso largo",
-    "tags": ["sin alcohol", "té", "ahumado"],
+    "tags": [
+      "sin alcohol",
+      "té",
+      "ahumado"
+    ],
     "ingredients": [
-      {"q": "120 ml", "n": "Té lapsang souchong frío y cargado"},
-      {"q": "20 ml", "n": "Sirope de jengibre"},
-      {"q": "3 gotas", "n": "Angostura"},
-      {"q": "10 ml", "n": "Limón (opcional, para más vivo)"}
+      {
+        "q": "120 ml",
+        "n": "Té lapsang souchong frío y cargado"
+      },
+      {
+        "q": "20 ml",
+        "n": "Sirope de jengibre"
+      },
+      {
+        "q": "3 gotas",
+        "n": "Angostura"
+      },
+      {
+        "q": "10 ml",
+        "n": "Limón (opcional, para más vivo)"
+      }
     ],
     "steps": [
       "Construir sobre hielo.",
